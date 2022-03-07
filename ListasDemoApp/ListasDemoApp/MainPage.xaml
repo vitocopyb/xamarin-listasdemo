@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListasDemoApp.MainPage"
+             BackgroundColor="White">
+
+    <!--<ListView
+        ItemsSource="{Binding .}"
+        Header="Mis Amigos"
+        Footer="Todos los derechos reservados"
+        RowHeight="50"
+        SeparatorVisibility="None"
+    >-->
+    <ListView
+        ItemsSource="{Binding Friends}"
+        Header=""
+        Footer=""
+        SeparatorColor="Blue"
+        HasUnevenRows="True"
+        BackgroundColor="White"
+        IsGroupingEnabled="True"
+        GroupShortNameBinding="{Binding Key}"
+    >
+        <ListView.GroupHeaderTemplate>
+            <DataTemplate>
+                <ViewCell Height="30">
+                    <StackLayout
+                        VerticalOptions="FillAndExpand"
+                        Padding="10"
+                        BackgroundColor="Blue"
+                    >
+                        <Label
+                            Text="{Binding Key}"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                        />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        
+        <ListView.HeaderTemplate>
+            <DataTemplate>
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="Center"
+                >
+                    <Label Text="Mis" TextColor="Green" FontSize="Title" />
+                    <Label Text="Amigos" TextColor="Blue" FontSize="Title" />
+                </StackLayout>
+            </DataTemplate>
+        </ListView.HeaderTemplate>
+        
+        <ListView.FooterTemplate>
+            <DataTemplate>
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="Center"
+                    Margin="0, 20"
+                >
+                    <Label Text="Todos los derechos " TextColor="DarkGray" FontSize="Medium" />
+                    <Label Text="reservados" TextColor="DarkRed" FontSize="Medium" />
+                </StackLayout>
+            </DataTemplate>
+        </ListView.FooterTemplate>
+        
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid
+                            ColumnDefinitions="100, *, 80"
+                            Margin="10"
+                        >
+                            <Label Grid.Column="0" Text="{Binding FirstName}" />
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding Phone}" />
+                                <Label Text="{Binding Email}" FontSize="Caption" />
+                            </StackLayout>
+                            <Button Grid.Column="2" Text="CALL!" />
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+</ContentPage>
