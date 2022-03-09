@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListasDemoApp.Views.FriendPage"
+             Title="{Binding NewFriend.FirstName}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="First Name:" />
+            <Entry Placeholder="John Smith" Text="{Binding NewFriend.FirstName}" />
+            
+            <Label Text="Phone:" />
+            <Entry Placeholder="(+56 9) 87654321" Text="{Binding NewFriend.Phone}" />
+            
+            <Label Text="Email:" />
+            <Entry Placeholder="example@company.com" Text="{Binding NewFriend.Email}" />
+
+            <StackLayout Orientation="Horizontal" Margin="20">
+                <Button Text="Save Friend" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGreen" TextColor="White" HeightRequest="50" Command="{Binding SaveFriendCommand}" />
+                <Button x:Name="BtnDelete" Text="Delete Friend" HorizontalOptions="FillAndExpand" BackgroundColor="DarkRed" TextColor="White" HeightRequest="50" Command="{Binding DeleteFriendCommand}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

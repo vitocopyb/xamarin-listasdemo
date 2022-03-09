@@ -1,9 +1,11 @@
 ﻿using Foundation.ObjectHydrator;
+using ListasDemoApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ListasDemoApp.Models
 {
@@ -13,8 +15,10 @@ namespace ListasDemoApp.Models
 
         public FriendRepository()
         {
-            Hydrator<Friend> _friendHydrator = new Hydrator<Friend>();
-            Friends = _friendHydrator.GetList(50);
+            //Hydrator<Friend> _friendHydrator = new Hydrator<Friend>();
+            //Friends = _friendHydrator.GetList(50);
+
+            Task.Run(async () => Friends = await App.Database.GetItemsAsync()).Wait();
         }
 
         public IList<Friend> GetAll()
@@ -30,15 +34,20 @@ namespace ListasDemoApp.Models
             return query.ToList();
         }
 
-        public ObservableCollection<Helpers.Grouping<string, Friend>> GetAllGrouped()
+        public ObservableCollection<Grouping<string, Friend>> GetAllGrouped()
         {
-            var sorted = from f in Friends
+            IEnumerable<Grouping<string, Friend>> sorted = new Grouping<string, Friend>[0];
+
+            if (Friends != null)
+            {
+                sorted = from f in Friends
                          orderby f.FirstName
                          group f by f.FirstName[0].ToString()
                          into theGroup
-                         select new Helpers.Grouping<string, Friend>(theGroup.Key, theGroup);
+                         select new Grouping<string, Friend>(theGroup.Key, theGroup);
+            }
 
-            return new ObservableCollection<Helpers.Grouping<string, Friend>>(sorted);
+            return new ObservableCollection<Grouping<string, Friend>>(sorted);
         }
 
     }
